@@ -1,0 +1,9 @@
+jobs:
+  deploy-db:
+    uses: Agence-Furious-Duck/services-ci-template/.github/workflows/postgresql.github-ci.yaml@main
+    with:
+      db_name: "products"
+      k8s_namespace: "postgres"
+    secrets:
+      postgresql_admin_user: ${{ secrets.POSTGRESQL_ADMIN_USER }}
+      postgresql_admin_password: ${{ secrets.POSTGRESQL_ADMIN_PASSWORD }}

@@ -1,0 +1,45 @@
+# Spécifique à l'environnement de développement pour Bitnami postgresql-ha
+livenessProbe:
+  tcpSocket:
+    port: 5432
+  initialDelaySeconds: 30
+  periodSeconds: 10
+
+readinessProbe:
+  tcpSocket:
+    port: 5432
+  initialDelaySeconds: 30
+  periodSeconds: 10
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    cpu: 300m
+    memory: 512Mi
+
+persistence:
+  enabled: true
+  storageClass: "standard" # adapte selon ton cluster
+  accessModes:
+    - ReadWriteOnce
+  size: 5Gi
+
+volumes:
+  - name: postgres-data
+    persistentVolumeClaim:
+      claimName: postgres-data-dev
+volumeMounts:
+  - name: postgres-data
+    mountPath: /bitnami/postgresql
+
+pvc:
+  name: postgres-data-dev
+  size: 5Gi
+  storageClass: standard
+
+service:
+  type: ClusterIP
+  port: 5432
+  targetPort: 5432
