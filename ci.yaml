@@ -1,3 +1,8 @@
+name: Deploy PostgreSQL
+on:
+  push:
+    branches: [main]
+
 jobs:
   deploy-db:
     uses: Agence-Furious-Duck/services-ci-template/.github/workflows/postgresql.github-ci.yaml@main
